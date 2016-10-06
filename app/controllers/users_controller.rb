@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :log_in?, only: [:new]
+
   def new
   end
 
@@ -8,6 +10,7 @@ class UsersController < ApplicationController
       log_in(user)
       redirect_to user_url(user)
     else
+      flash.now[:errors] = user.errors.full_messages
       render :new
     end
   end

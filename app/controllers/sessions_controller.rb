@@ -1,5 +1,8 @@
 class SessionsController < ApplicationController
+  before_action :log_in?, only: [:new]
+
   def new
+    render :new
   end
 
   def create
@@ -7,14 +10,16 @@ class SessionsController < ApplicationController
     if user
       log_in(user)
       flash[:notice] = "Success!!!"
-      redirect_to user_url(user)
+      redirect_to cats_url
     else
-      flash.now[:errors] = user.errors.full_messages
+      flash.now[:errors] = ["Invalid!"]
       render :new
     end
   end
 
   def destroy
+    log_out(current_user)
+    redirect_to new_session_url
   end
 
   private

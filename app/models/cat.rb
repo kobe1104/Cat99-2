@@ -10,6 +10,7 @@
 #  description :text
 #  created_at  :datetime
 #  updated_at  :datetime
+#  user_id     :integer
 #
 
 require 'action_view'
@@ -18,6 +19,13 @@ class Cat < ActiveRecord::Base
   include ActionView::Helpers::DateHelper
 
   CAT_COLORS = %w(black white orange brown)
+
+  belongs_to :owner,
+    primary_key: :id,
+    foreign_key: :user_id,
+    class_name: :User
+
+  validates :owner, null: false
 
   has_many(
     :rental_requests,

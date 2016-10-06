@@ -17,6 +17,11 @@ class User < ActiveRecord::Base
   validates :session_token, uniqueness: true
   after_initialize :ensure_session_token
 
+  has_many :cats,
+    primary_key: :id,
+    foreign_key: :user_id,
+    class_name: :Cat
+    
   attr_reader :password
 
   def self.find_by_credentials(user_name, password)

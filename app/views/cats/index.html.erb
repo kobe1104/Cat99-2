@@ -5,5 +5,5 @@
     <li><%= link_to cat.name, cat_url(cat) %></li>
   <% end %>
 </ul>
-
+<%=button_to "log out", session_url, method: :delete %>
 <%= link_to "Create cat", new_cat_url %>
